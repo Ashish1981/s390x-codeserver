@@ -1,5 +1,5 @@
-FROM s390x/node
-#FROM  ashish1981/s390x-codeserver:intmdt
+#FROM s390x/node
+FROM  ashish1981/s390x-codeserver:intmdn
 
 
 ENV LANG=en_US.UTF-8 \
@@ -18,7 +18,7 @@ RUN  \
     apt-get update && \
     export DEBIAN_FRONTEND=noninteractive && ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime && \
     apt-get install -y curl locales gnupg2 tzdata && locale-gen en_US.UTF-8 && \
-#    curl -sL https://deb.nodesource.com/setup_13.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_13.x | bash - && \
     apt-get upgrade -y && \
     apt-get install -y  \
     sudo \
@@ -34,7 +34,7 @@ RUN  \
     dumb-init \
     wget \
     httpie \
-#    nodejs \
+    nodejs \
     python \
     python3-pip \
     joe \
@@ -46,7 +46,7 @@ RUN  \
     apt clean && \
     rm -rf /var/lib/apt/lists/* 
 
-# RUN locale-gen en_US.UTF-8 && \
+RUN locale-gen en_US.UTF-8 && \
 # #     cd /tmp && \
 # #     # install code-server
 # #     wget -O - $(curl -s https://api.github.com/repos/cdr/code-server/releases/latest |  jq -r '.assets[] | select(.browser_download_url | contains("linux-amd64")) | .browser_download_url') | tar -xzv --strip 1 -C /usr/local/bin/ && \
@@ -66,38 +66,38 @@ RUN  \
 # #     # chmod 600 /dev/net/tun && \
 # #     # echo "user ALL=(ALL) NOPASSWD: /usr/sbin/openvpn --config /home/coder/projects/.openvpn/openvpn-client-conf.ovpn" >> /etc/sudoers.d/openvpn-client && \
 # #     # add user coder
-#     adduser --disabled-password --gecos '' coder && \
-#     echo '%sudo ALL=(ALL:ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-#     echo "coder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd && \
-#     chmod g+rw /home/coder && \
-#     chmod a+x /opt/exec && \
-#     chgrp -R 0 /home/coder /etc/ansible && \
-#     chmod -R g=u /home/coder /etc/ansible /etc/resolv.conf && \
-#     chmod g=u /etc/passwd /etc/resolv.conf /etc/ssl/certs/ca-certificates.crt
+    adduser --disabled-password --gecos '' coder && \
+    echo '%sudo ALL=(ALL:ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+    echo "coder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd && \
+    chmod g+rw /home/coder && \
+    chmod a+x /opt/exec && \
+    chgrp -R 0 /home/coder /etc/ansible && \
+    chmod -R g=u /home/coder /etc/ansible /etc/resolv.conf && \
+    chmod g=u /etc/passwd /etc/resolv.conf /etc/ssl/certs/ca-certificates.crt
 
-# ENV LC_ALL=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
 
-# WORKDIR /home/coder
+WORKDIR /home/coder
 
-# USER coder
+USER coder
 
-# RUN mkdir -p projects && mkdir -p certs && \
-#     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh | bash && \
-#     sudo chmod -R g+rw projects/ && \
-#     sudo chmod -R g+rw certs/ && \
-#     sudo chmod -R g+rw .nvm && \
-#     sudo rm -frv .config/ && \
-#     sudo chgrp -R 0 /home/coder
+RUN mkdir -p projects && mkdir -p certs && \
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh | bash && \
+    sudo chmod -R g+rw projects/ && \
+    sudo chmod -R g+rw certs/ && \
+    sudo chmod -R g+rw .nvm && \
+    sudo rm -frv .config/ && \
+    sudo chgrp -R 0 /home/coder
 
-# COPY entrypoint /home/coder
-# RUN sudo chmod g+rx /home/coder/entrypoint
+COPY entrypoint /home/coder
+RUN sudo chmod g+rx /home/coder/entrypoint
 
-# VOLUME ["/home/coder/projects", "/home/coder/certs"];
+VOLUME ["/home/coder/projects", "/home/coder/certs"];
 
-# USER 10001
+USER 10001
 
-# ENTRYPOINT ["/home/coder/entrypoint"]
+ENTRYPOINT ["/home/coder/entrypoint"]
 
-# EXPOSE 9000 8080
+EXPOSE 9000 8080
 
-# CMD ["/opt/exec"]
+CMD ["/opt/exec"]
