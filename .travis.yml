@@ -4,12 +4,12 @@ services:
 script: 
     docker build -t s390x-codeserver -f Dockerfile .
 before_deploy:
-    - docker tag  s390x-codeserver  "$DOCKER_USERNAME"/s390x-codeserver:latest
+    - docker tag  s390x-codeserver  "$DOCKER_USERNAME"/s390x-codeserver:intmdt
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin  
 deploy:
   provider: script
   script: 
-     docker push "$DOCKER_USERNAME"/s390x-codeserver:latest
+     docker push "$DOCKER_USERNAME"/s390x-codeserver:intmdt
   on:
     branch: master  
 notifications:
