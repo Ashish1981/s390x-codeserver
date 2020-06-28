@@ -1,4 +1,4 @@
-FROM  s390x/node:latest
+FROM  s390x/ubuntu:18.04
 
 
 ENV LANG=en_US.UTF-8 \
