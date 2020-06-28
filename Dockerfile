@@ -1,4 +1,4 @@
-FROM  s390x/ubuntu:18.04
+FROM  s390x/node:latest
 
 
 ENV LANG=en_US.UTF-8 \
@@ -49,15 +49,15 @@ RUN locale-gen en_US.UTF-8 && \
     # install code-server
     wget -O - $(curl -s https://api.github.com/repos/cdr/code-server/releases/latest |  jq -r '.assets[] | select(.browser_download_url | contains("linux-x86_64")) | .browser_download_url') | tar -xzv --strip 1 -C /usr/local/bin/ && \
     # install openshift/kubernetes client tools
-    wget -O - https://github.com/openshift/origin/releases/download/${oc_version}/openshift-origin-client-tools-${oc_version}-${oc_version_commit}-linux-64bit.tar.gz | tar -xzv --strip 1 openshift-origin-client-tools-${oc_version}-${oc_version_commit}-linux-64bit/oc openshift-origin-client-tools-${oc_version}-${oc_version_commit}-linux-64bit/kubectl && \
-    mv oc kubectl /usr/bin/ && \
-#    /usr/bin/oc completion bash >> /etc/bash_completion.d/oc_completion && \
-#    /usr/bin/kubectl completion bash >> /etc/bash_completion.d/kubectl_completion && \
-    # for openvpn
-    mkdir -p /dev/net && \
-    mknod /dev/net/tun c 10 200 && \
-    chmod 600 /dev/net/tun && \
-    echo "user ALL=(ALL) NOPASSWD: /usr/sbin/openvpn --config /home/coder/projects/.openvpn/openvpn-client-conf.ovpn" >> /etc/sudoers.d/openvpn-client && \
+    # wget -O - https://github.com/openshift/origin/releases/download/${oc_version}/openshift-origin-client-tools-${oc_version}-${oc_version_commit}-linux-64bit.tar.gz | tar -xzv --strip 1 openshift-origin-client-tools-${oc_version}-${oc_version_commit}-linux-64bit/oc openshift-origin-client-tools-${oc_version}-${oc_version_commit}-linux-64bit/kubectl && \
+    # mv oc kubectl /usr/bin/ && \
+    # /usr/bin/oc completion bash >> /etc/bash_completion.d/oc_completion && \
+    # /usr/bin/kubectl completion bash >> /etc/bash_completion.d/kubectl_completion && \
+    # # for openvpn
+    # mkdir -p /dev/net && \
+    # mknod /dev/net/tun c 10 200 && \
+    # chmod 600 /dev/net/tun && \
+    # echo "user ALL=(ALL) NOPASSWD: /usr/sbin/openvpn --config /home/coder/projects/.openvpn/openvpn-client-conf.ovpn" >> /etc/sudoers.d/openvpn-client && \
     # add user coder
     adduser --disabled-password --gecos '' coder && \
     echo '%sudo ALL=(ALL:ALL) NOPASSWD:ALL' >> /etc/sudoers && \
