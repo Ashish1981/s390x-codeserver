@@ -17,10 +17,11 @@ RUN  \
     apt-get update && \
     export DEBIAN_FRONTEND=noninteractive && ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime && \
     apt-get install -y curl locales gnupg2 tzdata && locale-gen en_US.UTF-8 && \
-    curl -sL https://deb.nodesource.com/setup_13.x | bash - && \
+#    curl -sL https://deb.nodesource.com/setup_13.x | bash - && \
     apt-get upgrade -y && \
     apt-get install -y  \
     sudo \
+    curl \
     openssl \
     net-tools \
     openvpn \
@@ -32,7 +33,7 @@ RUN  \
     dumb-init \
     wget \
     httpie \
-    nodejs \
+#    nodejs \
     python \
     python3-pip \
     joe \
@@ -48,6 +49,8 @@ RUN locale-gen en_US.UTF-8 && \
     cd /tmp && \
     # install code-server
     # wget -O - $(curl -s https://api.github.com/repos/cdr/code-server/releases/latest |  jq -r '.assets[] | select(.browser_download_url | contains("linux-x86_64")) | .browser_download_url') | tar -xzv --strip 1 -C /usr/local/bin/ && \
+    curl -fsSL https://code-server.dev/install.sh | sh \
+    yarn global add code-server \
     npm install -g code-server --force \
     # install openshift/kubernetes client tools
     # wget -O - https://github.com/openshift/origin/releases/download/${oc_version}/openshift-origin-client-tools-${oc_version}-${oc_version_commit}-linux-64bit.tar.gz | tar -xzv --strip 1 openshift-origin-client-tools-${oc_version}-${oc_version_commit}-linux-64bit/oc openshift-origin-client-tools-${oc_version}-${oc_version_commit}-linux-64bit/kubectl && \
