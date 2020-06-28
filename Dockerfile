@@ -51,7 +51,7 @@ RUN locale-gen en_US.UTF-8 && \
     # install openshift/kubernetes client tools
     wget -O - https://github.com/openshift/origin/releases/download/${oc_version}/openshift-origin-client-tools-${oc_version}-${oc_version_commit}-linux-64bit.tar.gz | tar -xzv --strip 1 openshift-origin-client-tools-${oc_version}-${oc_version_commit}-linux-64bit/oc openshift-origin-client-tools-${oc_version}-${oc_version_commit}-linux-64bit/kubectl && \
     mv oc kubectl /usr/bin/ && \
-    /usr/bin/oc completion bash >> /etc/bash_completion.d/oc_completion && \
+#    /usr/bin/oc completion bash >> /etc/bash_completion.d/oc_completion && \
     /usr/bin/kubectl completion bash >> /etc/bash_completion.d/kubectl_completion && \
     # for openvpn
     mkdir -p /dev/net && \
