@@ -1,4 +1,5 @@
-FROM  ashish1981/s390x-codeserver:intmdt
+FROM s390x/node
+#FROM  ashish1981/s390x-codeserver:intmdt
 
 
 ENV LANG=en_US.UTF-8 \
