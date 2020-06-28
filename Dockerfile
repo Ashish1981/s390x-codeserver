@@ -13,7 +13,7 @@ ENV LANG=en_US.UTF-8 \
 
 COPY exec /opt
 
-RUN . /etc/lsb-release && \
+RUN  \
     apt-get update && \
     export DEBIAN_FRONTEND=noninteractive && ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime && \
     apt-get install -y curl locales gnupg2 tzdata && locale-gen en_US.UTF-8 && \
