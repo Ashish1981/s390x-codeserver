@@ -83,6 +83,7 @@ RUN mkdir -p projects && mkdir -p certs && \
     sudo chgrp -R 0 /home/coder
 
 COPY entrypoint /home/coder
+RUN sudo chmod g+rx /home/coder/entrypoint
 
 VOLUME ["/home/coder/projects", "/home/coder/certs"];
 
