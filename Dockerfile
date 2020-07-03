@@ -18,7 +18,7 @@ RUN  \
     apt-get update && \
     export DEBIAN_FRONTEND=noninteractive && ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime && \
     apt-get install -y curl locales gnupg2 tzdata && locale-gen en_US.UTF-8 && \
-    curl -sL https://deb.nodesource.com/setup_13.x | bash - && \
+#    curl -sL https://deb.nodesource.com/setup_13.x | bash - && \
     apt-get upgrade -y && \
     apt-get install -y  \
     sudo \
@@ -34,7 +34,7 @@ RUN  \
     dumb-init \
     wget \
     httpie \
-    nodejs \
+ #   nodejs \
     python \
     python3-pip \
     joe \
